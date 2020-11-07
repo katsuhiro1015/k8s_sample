@@ -20,7 +20,8 @@ $ brew install kind
 
 ## create cluster
 
-cluster name = kind (default)
+kindでkubernetesクラスタを作成する  
+その際、Dockerの外部（ローカル端末）から80,443でDocker内のkindへ通信できるようにポートマッピングを設定する
 
 ```
 $ cat <<EOF | kind create cluster --config=-
@@ -52,9 +53,19 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/ma
 
 ## sample app (nginx)
 
+deployment,service,ingressをデプロイする  
+
 ```
+$ cd nginx
 $ kubectl apply -f deployment.yaml
 $ kubectl apply -f service.yaml
+$ kubectl apply -f ingress.yaml
+```
+
+## confirm 
+
+```
+$ curl http://localhost/
 ```
 
 ## clean up
